@@ -26,7 +26,7 @@ dummyimg.src = img.src;
 dummyimg.classList.add("img1-pos");
 
 function init() {
-  console.log(texture);
+  // console.log(texture);
   camera = new THREE.PerspectiveCamera(
     70,
     window.innerWidth / window.innerHeight,
@@ -44,11 +44,17 @@ function init() {
   });
   mesh = new THREE.Mesh(geometry, material);
   scene.add(mesh);
+  // scene.background = new THREE.Color( 0xff0000 );
 
-  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setClearColor( 0xffffff, 0 );
+
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.outputEncoding = THREE.sRGBEncoding;
-  document.body.appendChild(renderer.domElement);
+  renderer.domElement.classList.add( "dogs" );
+  let newDOM = document.querySelector( '.hero .img-outer' );
+  newDOM.appendChild( renderer.domElement );
+  img.style.display = 'none';
 
   // post processing
   composer = new EffectComposer(renderer);
